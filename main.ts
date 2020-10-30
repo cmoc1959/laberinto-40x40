@@ -2,7 +2,37 @@ namespace SpriteKind {
     export const Premio = SpriteKind.create()
     export const horizontal = SpriteKind.create()
     export const vertical = SpriteKind.create()
+    export const adelante = SpriteKind.create()
+    export const atras = SpriteKind.create()
+    export const azul = SpriteKind.create()
+    export const rojo = SpriteKind.create()
+    export const gris = SpriteKind.create()
+    export const verde = SpriteKind.create()
+    export const cian = SpriteKind.create()
+    export const amarillo = SpriteKind.create()
+    export const negro = SpriteKind.create()
+    export const naranja = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.cian, sprites.vehicle.roadVertical, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile10)
+    }
+})
+scene.onOverlapTile(SpriteKind.gris, myTiles.tile2, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, sprites.vehicle.roadVertical)
+    }
+})
+scene.onOverlapTile(SpriteKind.gris, myTiles.tile3, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, sprites.vehicle.roadHorizontal)
+    }
+})
+scene.onOverlapTile(SpriteKind.cian, sprites.vehicle.roadHorizontal, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile11)
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Premio, function (sprite, otherSprite) {
     music.powerUp.play()
     game.setDialogTextColor(9)
@@ -44,14 +74,106 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Premio, function (sprite, otherS
     console.log("tiempo empleado: " + Math.round(game.runtime() / 1000) + " seg")
     game.showLongText("tiempo empleado: " + Math.round(game.runtime() / 1000) + " seg", DialogLayout.Bottom)
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.vehicle.roadVertical, function (sprite, location) {
-    if (ayuda == "s") {
-        tiles.setTileAt(location, myTiles.tile2)
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (linea_g == 1) {
+        yo.setKind(SpriteKind.gris)
+        linea_g = 0
+        linea_a = 1
+    } else if (linea_a == 1) {
+        yo.setKind(SpriteKind.azul)
+        linea_a = 0
+        linea_r = 1
+    } else if (linea_r == 1) {
+        yo.setKind(SpriteKind.rojo)
+        linea_r = 0
+        linea_g = 1
     }
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.vehicle.roadHorizontal, function (sprite, location) {
+scene.onOverlapTile(SpriteKind.amarillo, myTiles.tile10, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile8)
+    }
+})
+scene.onOverlapTile(SpriteKind.negro, myTiles.tile8, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile14)
+    }
+})
+function guias () {
+    Parrafo1 = "-------- Pistas -------                      "
+    Parrafo2 = "Pulsando \"B\" puedes cambiar el camino de color: azul, rojo, blanco.            "
+    Parrafo3 = " Puedes usar estos colores para marcar los diferentes caminos por los que has pasado."
+    game.setDialogTextColor(9)
+    game.setDialogCursor(img`
+        . . . b b b b b b b b b . . . . 
+        . . b 1 d d d d d d d 1 b . . . 
+        . b 1 1 1 1 1 1 1 1 1 1 1 b . . 
+        . b d b c c c c c c c b d b . . 
+        . b d c 6 6 6 6 6 6 6 c d b . . 
+        . b d c 6 d 6 6 6 6 6 c d b . . 
+        . b d c 6 6 6 6 6 6 6 c d b . . 
+        . b d c 6 6 6 6 6 6 6 c d b . . 
+        . b d c 6 6 6 6 6 6 6 c d b . . 
+        . b d c c c c c c c c c d b . . 
+        . c b b b b b b b b b b b c . . 
+        c b c c c c c c c c c c c b c . 
+        c 1 d d d d d d d d d d d 1 c . 
+        c 1 d 1 1 d 1 1 d 1 1 d 1 1 c . 
+        c b b b b b b b b b b b b b c . 
+        c c c c c c c c c c c c c c c . 
+        `)
+    game.setDialogFrame(img`
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        4 4 9 9 9 9 9 9 9 9 9 9 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 f f f f f f f f f 9 4 4 
+        4 4 9 9 9 9 9 9 9 9 9 9 9 4 4 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+        `)
+    game.showLongText("" + Parrafo1 + Parrafo2 + Parrafo3, DialogLayout.Full)
+}
+scene.onOverlapTile(SpriteKind.gris, myTiles.tile12, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, sprites.vehicle.roadHorizontal)
+    }
+})
+scene.onOverlapTile(SpriteKind.naranja, myTiles.tile15, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile12)
+    }
+})
+scene.onOverlapTile(SpriteKind.negro, myTiles.tile9, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile15)
+    }
+})
+scene.onOverlapTile(SpriteKind.azul, sprites.vehicle.roadHorizontal, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile5)
+    }
+})
+scene.onOverlapTile(SpriteKind.rojo, myTiles.tile5, function (sprite, location) {
     if (ayuda == "s") {
         tiles.setTileAt(location, myTiles.tile3)
+    }
+})
+scene.onOverlapTile(SpriteKind.azul, sprites.vehicle.roadVertical, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile4)
+    }
+})
+scene.onOverlapTile(SpriteKind.amarillo, myTiles.tile11, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile9)
     }
 })
 function Fondos () {
@@ -90,11 +212,34 @@ function Fondos () {
         scene.setBackgroundColor(15)
     }
 }
+scene.onOverlapTile(SpriteKind.gris, myTiles.tile13, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, sprites.vehicle.roadVertical)
+    }
+})
+scene.onOverlapTile(SpriteKind.naranja, myTiles.tile14, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile13)
+    }
+})
+scene.onOverlapTile(SpriteKind.rojo, myTiles.tile4, function (sprite, location) {
+    if (ayuda == "s") {
+        tiles.setTileAt(location, myTiles.tile2)
+    }
+})
 let color = 0
+let Parrafo3 = ""
+let Parrafo2 = ""
+let Parrafo1 = ""
+let linea_r = 0
+let linea_a = 0
+let linea_g = 0
+let yo: Sprite = null
 let ayuda = ""
 game.splash("Laberinto 40x40", "Autor: Claudio Orts")
 ayuda = game.askForString("Quieres ayuda? s=si, n=no", 1)
-let yo = sprites.create(img`
+guias()
+yo = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . 6 6 6 6 . . . . . . 
     . . . . 6 6 6 5 5 6 6 6 . . . . 
@@ -218,3 +363,10 @@ tiles.setTilemap(tiles.createTilemap(hex`510051000000000000000000000000000000000
     2...2...2.....2.....2.2.....2.............2...2.....2...2...2.....2.....2...2...2
     222222222222222222222222222222222222222222222222222222222222222222222222222222222
     `, [myTiles.transparency16,sprites.vehicle.roadTurn1,sprites.vehicle.roadVertical,sprites.vehicle.roadHorizontal,sprites.vehicle.roadIntersection2,sprites.vehicle.roadTurn4,sprites.vehicle.roadTurn3,sprites.vehicle.roadIntersection1,sprites.vehicle.roadIntersection3,sprites.vehicle.roadIntersection4,sprites.vehicle.roadTurn2,myTiles.tile1], TileScale.Sixteen))
+linea_g = 0
+linea_a = 1
+linea_r = 0
+let linea_v = 0
+let linea_y = 0
+let linea_c = 0
+let linea_n = 0
